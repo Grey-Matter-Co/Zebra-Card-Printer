@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:cardBackgroundColor="@color/colorOnPrimary"
+	app:cardCornerRadius="6dp">
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<LinearLayout
+			android:gravity="center"
+			android:orientation="vertical"
+			android:background="@color/red_300"
+			android:padding="@dimen/spacing_mlarge"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:minHeight="120dp">
+			<ImageView
+				android:id="@+id/icon"
+				android:layout_width="80dp"
+				android:layout_height="80dp"
+				android:tint="@android:color/white"
+				app:srcCompat="@drawable/ic_print"
+				android:contentDescription="TODO" />
+			<TextView
+				android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+				android:textStyle="bold"
+				android:textColor="@android:color/white"
+				android:id="@+id/title"
+				android:layout_width="wrap_content"
+				android:textAlignment="center"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/spacing_middle"
+				android:text="@string/no_printer_selected"/>
+		</LinearLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:gravity="left|center_vertical|center_horizontal|center|start"
+				android:orientation="vertical"
+				android:padding="@dimen/spacing_mlarge"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				tools:ignore="RtlHardcoded">
+				<TextView
+					android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+					android:textColor="@color/grey_60"
+					android:id="@+id/content"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/spacing_small"
+					android:text="@string/no_printer_selected_info"/>
+			</LinearLayout>
+			<LinearLayout
+				android:gravity="center"
+				android:orientation="horizontal"
+				android:id="@+id/lyt_action"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="@dimen/spacing_large">
+				<androidx.appcompat.widget.AppCompatButton
+					android:textColor="@android:color/white"
+					android:id="@+id/bt_close"
+					android:background="@drawable/btn_rounded_red"
+					android:paddingLeft="@dimen/spacing_mlarge"
+					android:paddingRight="@dimen/spacing_mlarge"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Retry"
+					style="@style/Widget.AppCompat.Button.Borderless"/>
+			</LinearLayout>
+		</LinearLayout>
+
+	</LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -5,7 +5,6 @@ import com.zebra.sdk.printer.discovery.DiscoveredPrinter
 import com.zebra.sdk.printer.discovery.DiscoveryException
 import com.zebra.sdk.printer.discovery.DiscoveryHandler
 
-
 object NetworkCardDiscovererExample
 {
     @JvmStatic
