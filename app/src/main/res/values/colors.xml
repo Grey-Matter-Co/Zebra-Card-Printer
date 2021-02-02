@@ -22,5 +22,9 @@
     <color name="red_300">#e57373</color>
     <color name="grey_60">#546e7a</color>
     <color name="red_400">#ef5350</color>
+	<color name="grey_80">#37474f</color>
+    <color name="grey_40">#999999</color>
+	<color name="red_600">#e53935</color>
+    <color name="grey_5">#f2f2f2</color>
 
 </resources>
