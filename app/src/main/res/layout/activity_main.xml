@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-	<androidx.recyclerview.widget.RecyclerView android:id="@+id/recView_cards_specimens"
-		android:paddingTop="@dimen/spacing_large"
-		android:paddingBottom="100dp"
-		android:scrollbars="vertical"
+	android:layout_width="match_parent" android:layout_height="match_parent">
+	<androidx.recyclerview.widget.RecyclerView android:id="@+id/recView_cards"
+		android:layout_width="match_parent" android:layout_height="match_parent"
+		android:paddingBottom="@dimen/spacing_mlarge"
 		android:clipToPadding="false"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
+		android:scrollbars="vertical"
 		android:scrollingCache="true"
 		app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 	<com.google.android.material.bottomappbar.BottomAppBar android:id="@+id/bottomAppBar"
 		android:layout_width="match_parent" android:layout_height="wrap_content"
 		android:layout_gravity="bottom"
-		app:contentInsetLeft="0dp"
-		app:contentInsetStart="0dp"
-		app:hideOnScroll="true"
-		 >
+		app:contentInsetStart="0dp" app:contentInsetLeft="0dp"
+		app:hideOnScroll="true" >
 		<include
 			layout="@layout/banner_loading"
 			android:visibility="gone" />
