@@ -14,13 +14,13 @@
 		android:layout_gravity="bottom"
 		app:contentInsetStart="0dp" app:contentInsetLeft="0dp"
 		app:hideOnScroll="true" >
-		<include
+		<include android:id="@+id/banner_loading"
 			layout="@layout/banner_loading"
-			android:visibility="gone" />
-		<include
+			android:visibility="visible" />
+		<include android:id="@+id/banner_no_printer"
 			layout="@layout/banner_no_printer"
 			android:layout_width="match_parent" android:layout_height="56dp"
-			android:visibility="visible" />
+			android:visibility="gone" />
 	</com.google.android.material.bottomappbar.BottomAppBar>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

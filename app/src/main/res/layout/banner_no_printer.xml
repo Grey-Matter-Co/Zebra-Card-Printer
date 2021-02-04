@@ -14,7 +14,7 @@
 		android:padding="@dimen/spacing_medium"
 		android:tint="@color/grey_5"
 		app:srcCompat="@drawable/ic_no_printer"
-		android:contentDescription="TODO" />
+		android:contentDescription="@string/desc_no_printer_icon" />
 
 	<TextView android:id="@+id/content"
 		app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"

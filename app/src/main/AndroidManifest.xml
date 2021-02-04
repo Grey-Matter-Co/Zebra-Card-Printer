@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZebraCardPrinter">
         <activity
+            android:name=".PrinterSelecterActivity"
+            android:label="@string/title_activity_printer_selecter"
+            android:theme="@style/Theme.ZebraCardPrinter.NoActionBar"></activity>
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.ZebraCardPrinter.NoActionBar">

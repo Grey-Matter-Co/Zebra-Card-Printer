@@ -10,6 +10,8 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="no_printer_selected">No Printer Selected</string>
-	<string name="short_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
-    <string name="bg_card_desc">Background Card</string>
+    <string name="short_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="desc_bg_card">Background Card</string>
+    <string name="desc_no_printer_icon">No Printer Icon</string>
+    <string name="title_activity_printer_selecter">PrinterSelecterActivity</string>
 </resources>
