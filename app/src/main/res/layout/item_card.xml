@@ -8,9 +8,16 @@
         app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="342.4dp" android:layout_height="215.92dp"
-        android:layout_marginTop="@dimen/spacing_mlarge"
-        >
-        <TextView android:id="@+id/text_Tittle"
+        android:layout_marginVertical="@dimen/spacing_middle"
+        android:clickable="true" android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/radius_corner" >
+        <ImageView android:id="@+id/card_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/bg_card_desc" />
+        <TextView android:id="@+id/card_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/short_lorem_ipsum" />

@@ -3,8 +3,7 @@ package isv.zebra.com.zebracardprinter.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import isv.zebra.com.zebracardprinter.R
@@ -16,7 +15,7 @@ class CardAdapter(private val cards: List<Card>): RecyclerView.Adapter<CardViewH
     // get params from card layout
     class CardViewHolder(itemView: View) : ViewHolder(itemView)
     {
-        val card: CardView = itemView.findViewById(R.id.cardView)
+        val card: ImageView = itemView.findViewById(R.id.card_bg)
         //val nameTextView = itemView.findViewById<TextView>(R.id.__)
         // @TODO("Add missing params")
     }
@@ -37,10 +36,10 @@ class CardAdapter(private val cards: List<Card>): RecyclerView.Adapter<CardViewH
     override fun onBindViewHolder(holder: CardViewHolder, position: Int)
     {
         val card = cards[position]
-        val cardView: CardView = holder.card
+        val cardBg: ImageView = holder.card
+        cardBg.setBackgroundResource(card.idBackground)
         //println("cardView.width"+cardView.width)
         //cardView.layoutParams = ConstraintLayout.LayoutParams( cardView.width, (cardView.width/1.58577251).toInt())
-        cardView.setBackgroundResource(card.idBackground)
 
         /* onBindViewHolder SAMPLE:
         val textView = viewHolder.nameTextView
