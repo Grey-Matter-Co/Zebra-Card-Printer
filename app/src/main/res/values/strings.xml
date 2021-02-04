@@ -14,4 +14,8 @@
     <string name="desc_bg_card">Background Card</string>
     <string name="desc_no_printer_icon">No Printer Icon</string>
     <string name="title_activity_printer_selecter">PrinterSelecterActivity</string>
+    <string name="title_activity_parametros">ParametrosActivity</string>
+    <string name="printer_model">Printer Model</string>
+    <string name="printer_address">255.255.255.255</string>
+
 </resources>

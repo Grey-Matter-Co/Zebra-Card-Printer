@@ -43,11 +43,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
-    implementation files('C:\\Program Files\\Zebra Technologies\\link_os_sdk\\android_card\\v2.14.5198\\lib\\ZSDK_CARD_ANDROID_API.jar')
-    implementation files('C:\\Program Files\\Zebra Technologies\\link_os_sdk\\android\\v2.14.5198\\lib\\ZSDK_ANDROID_API.jar')
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
