@@ -17,5 +17,12 @@
     <string name="title_activity_parametros">ParametrosActivity</string>
     <string name="printer_model">Printer Model</string>
     <string name="printer_address">255.255.255.255</string>
+    <string name="unable_to_communicate_with_printer_message">Unable to communicate with printer. Check your connection.</string>
+    <string name="error_updating_printer_status_message">Error updating printer status: %1$s</string>
+    <string name="error">Error</string>
+    <string name="reconnecting_to_printer"><![CDATA[Reconnecting to printer&#8230;]]></string>
+    <string name="error_reconnecting_to_printer_message">Error reconnecting to printer: %1$s</string>
+    <string name="usb_permissions_denied_message">USB permissions denied. Please authorize USB permissions to be able to connect to a printer via USB.</string>
+    <string name="requesting_usb_permission"><![CDATA[>Requesting USB permission&#8230;]]></string>
 
 </resources>

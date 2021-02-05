@@ -13,15 +13,12 @@
 		android:layout_gravity="bottom"
 		app:contentInsetStart="0dp" app:contentInsetLeft="0dp"
 		app:hideOnScroll="true" >
-		<include android:id="@+id/banner_loading"
-			layout="@layout/banner_loading"
+		<include layout="@layout/banner_loading"
 			android:visibility="visible" />
-		<include android:id="@+id/banner_no_printer"
-			layout="@layout/banner_no_printer"
+		<include layout="@layout/banner_no_printer"
 			android:layout_width="match_parent" android:layout_height="56dp"
 			android:visibility="gone" />
-		<include android:id="@+id/banner_printer_selected"
-			layout="@layout/banner_printer_selected"
+		<include layout="@layout/banner_printer_selected"
 			android:layout_width="match_parent" android:layout_height="56dp"
 			android:visibility="gone"/>
 	</com.google.android.material.bottomappbar.BottomAppBar>
