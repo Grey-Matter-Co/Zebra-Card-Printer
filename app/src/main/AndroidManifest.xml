@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="isv.zebra.com.zebracardprinter">
 
     <uses-feature
@@ -18,10 +19,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        tools:replace="android:supportsRtl"
         android:theme="@style/Theme.ZebraCardPrinter">
         <activity
-            android:name=".PrinterSelecterActivity"
-            android:label="@string/title_activity_printer_selecter"
+            android:name=".activity.FieldsCaptureActivity"
+            android:label="@string/title_activity_fields_capture"
+            android:theme="@style/Theme.ZebraCardPrinter.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.DiscoverPrintersActivity"
+            android:label="@string/title_activity_discovery_printer"
             android:theme="@style/Theme.ZebraCardPrinter.NoActionBar" />
         <activity
             android:name=".MainActivity"

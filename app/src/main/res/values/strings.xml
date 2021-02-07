@@ -2,8 +2,8 @@
     <string name="app_name">Zebra Card Printer</string>
 
     <!--  Activity Tittles  -->
-    <string name="title_activity_printer_selecter">PrinterSelecterActivity</string>
-    <string name="title_activity_parametros">ParametrosActivity</string>
+    <string name="title_activity_discovery_printer">PrinterSelecterActivity</string>
+    <string name="title_activity_fields_capture">ParametrosActivity</string>
 
     <!--  Values Banners  -->
     <string name="printer_model">Printer Model</string>
