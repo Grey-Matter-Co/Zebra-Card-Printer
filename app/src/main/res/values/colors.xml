@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Primary brand color. -->
-    <color name="colorPrimary">@color/purple_500</color>
-    <color name="colorPrimaryVariant">@color/purple_700</color>
-    <color name="colorOnPrimary">@color/white</color>
+    <color name="colorPrimary" />
+    <color name="colorPrimaryVariant" />
+    <color name="colorOnPrimary" />
     <!-- Secondary brand color. -->
-    <color name="colorSecondary">@color/teal_200</color>
-    <color name="colorSecondaryVariant">@color/teal_700</color>
-    <color name="colorOnSecondary">@color/black</color>
+    <color name="colorSecondary" />
+    <color name="colorSecondaryVariant" />
+    <color name="colorOnSecondary" />
 
 
     <color name="purple_200">#FFBB86FC</color>
@@ -45,5 +45,6 @@
     <color name="grey_90">#263238</color>
     <color name="grey_900">#212121</color>
     <color name="grey_95">#1a1a1a</color>
+    <color name="bannerText"> @color/grey_5</color>
 
 </resources>

@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/banner_printer_selected"
-	android:layout_width="match_parent" android:layout_height="match_parent"
-	android:background="@color/grey_5"
-	android:foreground="?attr/selectableItemBackground"
-	android:clickable="true" android:focusable="true"
-	>
+	android:id="@+id/bann_printer_sel"
+	style="@style/BannerContainer" >
 
-	<LinearLayout
-		app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+	<com.zebra.zebraui.ZebraPrinterView android:id="@+id/bann_printer_sel_icon"
+		style="@style/BannerIcon"
+		app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+		app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+<!--	<ImageView android:id="@+id/bann_printer_sel_icon"-->
+<!--		style="@style/BannerIcon"-->
+<!--		app:layout_constraintEnd_toStartOf="@+id/linearLayout"-->
+<!--		app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"-->
+<!--		android:contentDescription="@string/desc_no_printer_icon"-->
+<!--		android:tint="@color/grey_95"-->
+<!--		app:srcCompat="@drawable/ic_printer" />-->
+
+	<LinearLayout android:id="@+id/linearLayout"
 		app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:orientation="horizontal" >
-		<ImageView android:id="@+id/banner_printer_icon"
-			android:layout_width="40dp" android:layout_height="32dp"
-			android:contentDescription="@string/desc_no_printer_icon"
-			android:padding="@dimen/spacing_medium"
-			android:tint="@color/grey_95"
-			app:srcCompat="@drawable/ic_printer" />
-		<LinearLayout
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_gravity="center_vertical"
-			android:orientation="horizontal" >
-			<TextView android:id="@+id/banner_printer_model"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:layout_gravity="bottom"
-				android:text="@string/printer_model"
-				android:textAppearance="@style/TextAppearance.AppCompat.Button"
-				android:textColor="@color/grey_95"
-				android:textSize="18sp" />
-			<TextView android:id="@+id/banner_printer_address"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:layout_marginStart="@dimen/spacing_xmedium"
-				android:layout_gravity="bottom"
-				android:text="@string/printer_address"
-				android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-				android:textColor="@color/grey_95" />
-		</LinearLayout>
+		<TextView
+			android:id="@+id/bann_printer_sel_model"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:text="@string/printer_model"
+			android:textAppearance="@style/TextAppearance.AppCompat.Button"
+			android:textColor="@color/grey_95"
+			android:textSize="18sp" />
+		<TextView
+			android:id="@+id/bann_printer_sel_addR"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:layout_marginStart="@dimen/spacing_xmedium"
+			android:text="@string/printer_address"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+			android:textColor="@color/grey_95" />
 	</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,9 +6,9 @@ import com.zebra.sdk.comm.ConnectionException
 import com.zebra.sdk.common.card.printer.ZebraCardPrinter
 import com.zebra.sdk.common.card.printer.ZebraCardPrinterFactory
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter
+import com.zebra.zebraui.ZebraPrinterView
 import isv.zebra.com.zebracardprinter.R
 import isv.zebra.com.zebracardprinter.zebra.util.ConnectionHelper
-import isv.zebra.com.zebracardprinter.zebra.util.ZebraPrinterViewer
 import java.lang.ref.WeakReference
 
 class PrinterStatusUpdateTask(context: Context, private val printer: DiscoveredPrinter)
@@ -23,7 +23,7 @@ class PrinterStatusUpdateTask(context: Context, private val printer: DiscoveredP
 
 		var connection: Connection? = null
 		var zebraCardPrinter: ZebraCardPrinter? = null
-		var zebraViewerStatus :ZebraPrinterViewer.PrinterStatus? = ZebraPrinterViewer.PrinterStatus.UNKNOWN
+		var zebraViewerStatus :ZebraPrinterView.PrinterStatus? = ZebraPrinterView.PrinterStatus.UNKNOWN
 
 		try
 		{
@@ -33,17 +33,17 @@ class PrinterStatusUpdateTask(context: Context, private val printer: DiscoveredP
 			val printerStatus = zebraCardPrinter.printerStatus
 			zebraViewerStatus = if (printerStatus != null)
 									if (printerStatus.errorInfo.value != 0 || printerStatus.alarmInfo.value != 0)
-										ZebraPrinterViewer.PrinterStatus.ERROR
+										ZebraPrinterView.PrinterStatus.ERROR
 									else
-										ZebraPrinterViewer.PrinterStatus.ONLINE
+										ZebraPrinterView.PrinterStatus.ONLINE
 								else
-									ZebraPrinterViewer.PrinterStatus.ERROR
+									ZebraPrinterView.PrinterStatus.ERROR
 		} catch (e: ConnectionException) {
-			exception = ConnectionException(weakContext.get()!!.getString(R.string.unable_to_communicate_with_printer_message))
-			zebraViewerStatus = ZebraPrinterViewer.PrinterStatus.ERROR
+			exception = ConnectionException(weakContext.get()!!.getString(R.string.msg_unable_to_communicate_with_printer))
+			zebraViewerStatus = ZebraPrinterView.PrinterStatus.ERROR
 		} catch (e: Exception) {
 			exception = e
-			zebraViewerStatus = ZebraPrinterViewer.PrinterStatus.ERROR
+			zebraViewerStatus = ZebraPrinterView.PrinterStatus.ERROR
 		} finally {
 			ConnectionHelper.cleanUpQuietly(zebraCardPrinter, connection)
 			onUpdatePrinterStatusListener?.onUpdatePrinterStatusFinished(exception, zebraViewerStatus)
@@ -58,6 +58,6 @@ class PrinterStatusUpdateTask(context: Context, private val printer: DiscoveredP
 	interface OnUpdatePrinterStatusListener
 	{
 		fun onUpdatePrinterStatusStarted()
-		fun onUpdatePrinterStatusFinished(exception: java.lang.Exception?, printerStatus: ZebraPrinterViewer.PrinterStatus?)
+		fun onUpdatePrinterStatusFinished(exception: java.lang.Exception?, printerStatus: ZebraPrinterView.PrinterStatus?)
 	}
 }
