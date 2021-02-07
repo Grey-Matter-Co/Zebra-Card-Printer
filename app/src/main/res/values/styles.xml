@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BannerInclude">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/banner_size</item>
+        <item name="android:visibility">gone</item>
+    </style>
+    <style name="BannerContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/grey_5</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+    <style name="BannerContainer.Error">
+        <item name="android:background">@color/red_600</item>
+    </style>
+    <style name="BannerIcon">
+        <item name="android:layout_width">@dimen/banner_icon_size</item>
+        <item name="android:layout_height">@dimen/banner_icon_size</item>
+        <item name="android:padding">@dimen/banner_icon_padding</item>
+    </style>
+    <style name="BannerText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.Button</item>
+        <item name="android:textColor">@color/bannerText</item>
+        <item name="android:textSize">@dimen/banner_text_size</item>
+    </style>
+
+</resources>

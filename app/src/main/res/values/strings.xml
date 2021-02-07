@@ -1,28 +1,30 @@
 <resources>
     <string name="app_name">Zebra Card Printer</string>
-    <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="no_printer_selected">No Printer Selected</string>
-    <string name="short_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
-    <string name="desc_bg_card">Background Card</string>
-    <string name="desc_no_printer_icon">No Printer Icon</string>
+    <!--  Activity Tittles  -->
     <string name="title_activity_printer_selecter">PrinterSelecterActivity</string>
     <string name="title_activity_parametros">ParametrosActivity</string>
+
+    <!--  Values Banners  -->
     <string name="printer_model">Printer Model</string>
     <string name="printer_address">255.255.255.255</string>
-    <string name="unable_to_communicate_with_printer_message">Unable to communicate with printer. Check your connection.</string>
-    <string name="error_updating_printer_status_message">Error updating printer status: %1$s</string>
-    <string name="error">Error</string>
-    <string name="reconnecting_to_printer"><![CDATA[Reconnecting to printer&#8230;]]></string>
-    <string name="error_reconnecting_to_printer_message">Error reconnecting to printer: %1$s</string>
-    <string name="usb_permissions_denied_message">USB permissions denied. Please authorize USB permissions to be able to connect to a printer via USB.</string>
-    <string name="requesting_usb_permission"><![CDATA[>Requesting USB permission&#8230;]]></string>
+    <string name="no_printer_selected">No Printer Selected</string>
+    <string name="progress_sample">progress text…</string>
 
+    <!--  Printer Status Messages  -->
+    <string name="error">Error</string>
+    <string name="msg_waiting_reconnecting_to_printer">Reconnecting to printer&#8230;</string>
+    <string name="msg_waiting_requesting_usb_permission">Requesting USB permission&#8230;</string>
+    <string name="msg_unable_to_communicate_with_printer">Unable to communicate with printer. Check your connection.</string>
+    <string name="msg_error_reconnecting_to_printer">Error reconnecting to printer: %1$s</string>
+    <string name="msg_error_updating_printer_status">Error updating printer status: %1$s</string>
+    <string name="msg_warning_usb_permissions_denied">USB permissions denied. Please authorize USB permissions to be able to connect to a printer via USB.</string>
+
+    <!--  Image Descriptions  -->
+    <string name="desc_no_printer_icon">No Printer Icon</string>
+    <string name="desc_bg_card">Background Card</string>
+
+    <!--  TODO(Remove these at end of development project)  -->
+    <!--  Text Sample  -->
+    <string name="short_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
 </resources>
