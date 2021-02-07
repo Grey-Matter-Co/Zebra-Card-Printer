@@ -10,15 +10,8 @@ import isv.zebra.com.zebracardprinter.R
 import isv.zebra.com.zebracardprinter.adapter.ZCardAdapter.ZCardViewHolder
 import isv.zebra.com.zebracardprinter.model.ZCard
 
-class ZCardAdapter(private val zcards: List<ZCard>): RecyclerView.Adapter<ZCardViewHolder>()
+class ZCardAdapter(private var zcards: List<ZCard>, private var onZCardListener: OnZCardListener): RecyclerView.Adapter<ZCardViewHolder>()
 {
-    // get params from card layout
-    class ZCardViewHolder(itemView: View) : ViewHolder(itemView)
-    {
-        val card: ImageView = itemView.findViewById(R.id.card_bg)
-        //val nameTextView = itemView.findViewById<TextView>(R.id.__)
-        // @TODO("Add missing params")
-    }
 
     // Find card layout to get its params
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ZCardViewHolder
@@ -26,7 +19,7 @@ class ZCardAdapter(private val zcards: List<ZCard>): RecyclerView.Adapter<ZCardV
         val ctx = parent.context
         val inflater = LayoutInflater.from(ctx)
         val cardView = inflater.inflate(R.layout.item_zcard, parent, false)
-        return ZCardViewHolder(cardView)
+        return ZCardViewHolder(cardView, onZCardListener)
     }
 
     override fun getItemCount(): Int =
@@ -49,4 +42,23 @@ class ZCardAdapter(private val zcards: List<ZCard>): RecyclerView.Adapter<ZCardV
         button.isEnabled = contact.isOnline
          */
     }
+
+	public interface OnZCardListener
+	{
+		fun onCardClick(position: Int)
+	}
+
+	// get params from card layout
+	class ZCardViewHolder(itemView: View, private val onZCardListener: OnZCardListener) : ViewHolder(itemView), View.OnClickListener
+	{
+		val card: ImageView = itemView.findViewById(R.id.card_bg)
+		init
+			{ card.setOnClickListener(this) }
+
+		// @TODO("Add missing params")
+		//val nameTextView = itemView.findViewById<TextView>(R.id.__)
+		override fun onClick(view: View) {
+			onZCardListener.onCardClick(adapterPosition)
+		}
+	}
 }

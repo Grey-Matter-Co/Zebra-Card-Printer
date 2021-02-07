@@ -18,7 +18,9 @@ import com.zebra.sdk.printer.discovery.DiscoveredPrinterUsb
 import com.zebra.sdk.printer.discovery.UsbDiscoverer
 import com.zebra.zebraui.ZebraPrinterView
 import isv.zebra.com.zebracardprinter.activity.DiscoverPrintersActivity
+import isv.zebra.com.zebracardprinter.activity.FieldsCaptureActivity
 import isv.zebra.com.zebracardprinter.adapter.ZCardAdapter
+import isv.zebra.com.zebracardprinter.adapter.ZCardAdapter.OnZCardListener
 import isv.zebra.com.zebracardprinter.model.ZCard
 import isv.zebra.com.zebracardprinter.zebra.discovery.PrinterStatusUpdateTask
 import isv.zebra.com.zebracardprinter.zebra.discovery.PrinterStatusUpdateTask.OnUpdatePrinterStatusListener
@@ -34,7 +36,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusListener, OnReconnectPrinterListener
+class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusListener, OnReconnectPrinterListener, OnZCardListener
 {
 	private lateinit var zCards: ArrayList<ZCard>
 
@@ -148,9 +150,9 @@ class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusLi
 		printerIcon      = findViewById(R.id.bann_printer_sel_icon)
 
 		// Setting recuclerview w/ its cards
-		zCards = ZCard.createCardsList(10, R.drawable.school_id_sample)
+		zCards = ZCard.createCardsList(10, R.drawable.card_mamalona)
 		val recyclerView = findViewById<RecyclerView>(R.id.recView_zcards)
-		recyclerView.adapter = ZCardAdapter(zCards)
+		recyclerView.adapter = ZCardAdapter(zCards, this)
 		recyclerView.layoutManager = LinearLayoutManager(this)
 
 		// Config button to select printer
@@ -240,6 +242,12 @@ class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusLi
 		filter = IntentFilter()
 		filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
 		registerReceiver(usbDeviceAttachedReceiver, filter)
+	}
+
+	override fun onCardClick(position: Int)
+	{
+		startActivity(Intent(this@MainActivity, FieldsCaptureActivity::class.java)
+			.putExtra("zcardSelected", -1))
 	}
 
 	private fun unregisterReceivers() {
