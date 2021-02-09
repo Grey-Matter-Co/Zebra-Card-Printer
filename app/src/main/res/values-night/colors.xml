@@ -10,5 +10,6 @@
     <color name="colorOnSecondary">@color/black</color>
     
     <color name="transparent_white_overlay">#EF000000</color>
-    
+	<color name="shadow_overlay">#80FFFFFF</color>
+
 </resources>

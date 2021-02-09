@@ -27,4 +27,5 @@
     <!--  TODO(Remove these at end of development project)  -->
     <!--  Text Sample  -->
     <string name="short_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="desc_printer_image">Printer Image</string>
 </resources>

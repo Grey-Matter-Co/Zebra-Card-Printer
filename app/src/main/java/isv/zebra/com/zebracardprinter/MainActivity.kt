@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter
 import com.zebra.sdk.printer.discovery.DiscoveredPrinterUsb
 import com.zebra.sdk.printer.discovery.UsbDiscoverer
@@ -20,7 +21,6 @@ import com.zebra.zebraui.ZebraPrinterView
 import isv.zebra.com.zebracardprinter.activity.DiscoverPrintersActivity
 import isv.zebra.com.zebracardprinter.activity.FieldsCaptureActivity
 import isv.zebra.com.zebracardprinter.adapter.ZCardAdapter
-import isv.zebra.com.zebracardprinter.adapter.ZCardAdapter.OnZCardListener
 import isv.zebra.com.zebracardprinter.model.ZCard
 import isv.zebra.com.zebracardprinter.zebra.discovery.PrinterStatusUpdateTask
 import isv.zebra.com.zebracardprinter.zebra.discovery.PrinterStatusUpdateTask.OnUpdatePrinterStatusListener
@@ -36,7 +36,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusListener, OnReconnectPrinterListener, OnZCardListener
+class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusListener, OnReconnectPrinterListener
 {
 	private lateinit var zCards: ArrayList<ZCard>
 
@@ -122,6 +122,7 @@ class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusLi
 	{
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
+		setSupportActionBar(findViewById(R.id.toolbar))
 
 		// Request permissions for ¿@TODO("Figure out which permissions are requesting")?
 		registerReceivers()
@@ -149,10 +150,21 @@ class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusLi
 		progMsg          = findViewById(R.id.bann_prog_txt)
 		printerIcon      = findViewById(R.id.bann_printer_sel_icon)
 
-		// Setting recuclerview w/ its cards
+		// Setting RecyclerView w/ its [Card]s
 		zCards = ZCard.createCardsList(10, R.drawable.card_mamalona)
+			.also { it.add(0, ZCard(R.drawable.card_add)) }
 		val recyclerView = findViewById<RecyclerView>(R.id.recView_zcards)
-		recyclerView.adapter = ZCardAdapter(zCards, this)
+		recyclerView.adapter = ZCardAdapter(zCards).apply {
+			this.setOnClickZCardListener { pos ->
+				when (pos)
+				{
+					0 -> Snackbar.make(findViewById<RecyclerView>(R.id.recView_zcards).getChildAt(pos), "U clicked the first one", Snackbar.LENGTH_LONG)
+						.setAction("Action", null).show()
+					else -> startActivity(Intent(this@MainActivity, FieldsCaptureActivity::class.java)
+						.putExtra("zcardSelected", -1))
+				}
+			}
+		}
 		recyclerView.layoutManager = LinearLayoutManager(this)
 
 		// Config button to select printer
@@ -192,14 +204,10 @@ class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusLi
 		bannPrinterSel.visibility = if (isPrinterSelected) View.VISIBLE else View.GONE
 		bannNoPrinterSel.visibility = if (isPrinterSelected) View.GONE else View.VISIBLE
 		bannProg.visibility = View.GONE
-		//updateDemoButtons()
-		//invalidateOptionsMenu()
 	}
 
 	override fun onUpdatePrinterStatusStarted()
-	{
-		printerIcon.printerStatus = ZebraPrinterView.PrinterStatus.REFRESHING
-	}
+	{ printerIcon.printerStatus = ZebraPrinterView.PrinterStatus.REFRESHING }
 
 	override fun onUpdatePrinterStatusFinished(exception: java.lang.Exception?, printerStatus: ZebraPrinterView.PrinterStatus?)
 	{
@@ -232,7 +240,8 @@ class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusLi
 		refreshSelectedPrinterBanner()
 	}
 
-	private fun registerReceivers() {
+	private fun registerReceivers()
+	{
 		var filter = IntentFilter()
 		filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
 		registerReceiver(usbDisconnectReceiver, filter)
@@ -243,13 +252,6 @@ class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusLi
 		filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
 		registerReceiver(usbDeviceAttachedReceiver, filter)
 	}
-
-	override fun onCardClick(position: Int)
-	{
-		startActivity(Intent(this@MainActivity, FieldsCaptureActivity::class.java)
-			.putExtra("zcardSelected", -1))
-	}
-
 	private fun unregisterReceivers() {
 		unregisterReceiver(usbDisconnectReceiver)
 		unregisterReceiver(usbPermissionReceiver)

@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
-
-    <androidx.cardview.widget.CardView android:id="@+id/cardView"
-        style="@style/CardView.Light"
-        app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:gravity="center">
+    <androidx.cardview.widget.CardView android:id="@+id/printer_card"
+        style="@style/CardView"
         android:layout_width="@dimen/card_width" android:layout_height="@dimen/card_height"
         android:layout_marginVertical="@dimen/spacing_middle"
-        android:clickable="true" android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
         app:cardCornerRadius="@dimen/radius_corner" >
         <ImageView android:id="@+id/card_bg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:contentDescription="@string/desc_bg_card" />
-        <TextView android:id="@+id/card_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/short_lorem_ipsum" />
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/desc_bg_card"
+            android:clickable="true" android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"/>
     </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

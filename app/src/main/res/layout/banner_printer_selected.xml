@@ -20,23 +20,12 @@
 		app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:orientation="horizontal" >
-		<TextView
-			android:id="@+id/bann_printer_sel_model"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+		<TextView android:id="@+id/bann_printer_sel_model"
+			style="@style/PrinterText.Tittle"
+			android:layout_gravity="bottom"/>
+		<TextView android:id="@+id/bann_printer_sel_addR"
+			style="@style/PrinterText"
 			android:layout_gravity="bottom"
-			android:text="@string/printer_model"
-			android:textAppearance="@style/TextAppearance.AppCompat.Button"
-			android:textColor="@color/grey_95"
-			android:textSize="18sp" />
-		<TextView
-			android:id="@+id/bann_printer_sel_addR"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="bottom"
-			android:layout_marginStart="@dimen/spacing_xmedium"
-			android:text="@string/printer_address"
-			android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-			android:textColor="@color/grey_95" />
+			android:layout_marginStart="@dimen/spacing_xmedium" />
 	</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
