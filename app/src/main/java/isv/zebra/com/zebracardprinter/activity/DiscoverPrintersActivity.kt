@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import isv.zebra.com.zebracardprinter.R
 import isv.zebra.com.zebracardprinter.adapter.ZPrinterAdapter
 import isv.zebra.com.zebracardprinter.model.ZPrinter
+
 
 class DiscoverPrintersActivity : AppCompatActivity()
 {
@@ -32,13 +34,27 @@ class DiscoverPrintersActivity : AppCompatActivity()
         // Setting RecyclerView w/ its [Printer]s
         zPrinters = ZPrinter.createPrintersList(5, "ZPXT12")
         val recyclerView = findViewById<RecyclerView>(R.id.recView_zprinters)
-        recyclerView.adapter = ZPrinterAdapter(zPrinters)
+        recyclerView.adapter = ZPrinterAdapter(zPrinters).apply { this.context = this@DiscoverPrintersActivity }
             .apply {
                 this.setOnClickZPrinterListener { pos ->
-                    Snackbar.make( findViewById<RecyclerView>(R.id.recView_zprinters).getChildAt(pos), "U clicked the ${pos+1} one", Snackbar.LENGTH_LONG )
+                    Snackbar.make(
+                        findViewById<RecyclerView>(R.id.recView_zprinters).getChildAt(pos),
+                        "U clicked the ${pos + 1} one",
+                        Snackbar.LENGTH_LONG
+                    )
                         .setAction("Action", null).show()
                 }
         }
-        recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.layoutManager = StaggeredGridLayoutManager(
+            2,
+            StaggeredGridLayoutManager.VERTICAL
+        )
+
+        // Setting function to SwipeToRefresh
+        val pullToRefresh = findViewById<SwipeRefreshLayout>(R.id.pullToRefresh_printers)
+        pullToRefresh.setOnRefreshListener {
+            //refreshData() // your code
+            pullToRefresh.isRefreshing = false
+        }
     }
 }
