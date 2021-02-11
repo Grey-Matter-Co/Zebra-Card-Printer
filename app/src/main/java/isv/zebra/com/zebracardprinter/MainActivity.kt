@@ -1,9 +1,6 @@
 package isv.zebra.com.zebracardprinter
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbManager
 import android.os.Bundle
@@ -27,9 +24,7 @@ import isv.zebra.com.zebracardprinter.zebra.discovery.PrinterStatusUpdateTask.On
 import isv.zebra.com.zebracardprinter.zebra.discovery.ReconnectPrinterTask
 import isv.zebra.com.zebracardprinter.zebra.discovery.ReconnectPrinterTask.OnReconnectPrinterListener
 import isv.zebra.com.zebracardprinter.zebra.discovery.SelectedPrinterManager
-import isv.zebra.com.zebracardprinter.zebra.util.DialogHelper
-import isv.zebra.com.zebracardprinter.zebra.util.ProgressOverlayHelper
-import isv.zebra.com.zebracardprinter.zebra.util.UsbHelper
+import isv.zebra.com.zebracardprinter.zebra.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -38,40 +33,24 @@ import kotlin.coroutines.CoroutineContext
 
 class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusListener, OnReconnectPrinterListener
 {
+	companion object {
+		private const val REQUEST_START_ACTIVITY = 3001
+	}
 	private lateinit var zCards: ArrayList<ZCard>
 
-	private lateinit var bannNoPrinterSel	: ConstraintLayout
-	private lateinit var bannPrinterSel		: ConstraintLayout
-	private lateinit var bannProg			: ConstraintLayout
-	private lateinit var progMsg			: TextView
-	private lateinit var printerIcon		: ZebraPrinterView
-	
 	//For Coroutines
-	private lateinit var job: Job
-	override val coroutineContext: CoroutineContext
-		get() = job+Dispatchers.Main
-
-	// For Zebra Card Printer
-	private var printerSelected         : DiscoveredPrinter? = null
-	private val reconnectPrinterTask    : ReconnectPrinterTask? = null
+	private var jobPrinterStatusUpdate : Job = Job()
+	private var jobReconnectPrinter : Job = Job()
+	override val coroutineContext: CoroutineContext = Job()+Dispatchers.Main
+	private var reconnectPrinterTask    : ReconnectPrinterTask? = null
 	private var printerStatusUpdateTask : PrinterStatusUpdateTask? = null
 
-	private val usbDisconnectReceiver: BroadcastReceiver = object : BroadcastReceiver()
-	{
-		override fun onReceive(context: Context, intent: Intent)
-		{
-			if (UsbManager.ACTION_USB_DEVICE_DETACHED == intent.action)
-			{
-				val device = intent.getParcelableExtra<UsbDevice>(UsbManager.EXTRA_DEVICE)
-				val printer = SelectedPrinterManager.getSelectedPrinter()
-				if (printer is DiscoveredPrinterUsb && UsbDiscoverer.isZebraUsbDevice(device) && printer.device == device)
-				{
-					SelectedPrinterManager.setSelectedPrinter(null)
-					refreshSelectedPrinterBanner()
-				}
-			}
-		}
-	}
+	private lateinit var bannerNoPrnSel	: ConstraintLayout
+	private lateinit var bannerPrnSel	: ConstraintLayout
+	private lateinit var bannerPrg		: ConstraintLayout
+	private lateinit var prgMsg			: TextView
+	private lateinit var printerSelIcon	: ZebraPrinterView
+
 	private val usbPermissionReceiver: BroadcastReceiver = object : BroadcastReceiver()
 	{
 		override fun onReceive(context: Context, intent: Intent)
@@ -79,15 +58,26 @@ class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusLi
 			if (UsbHelper.ACTION_USB_PERMISSION_GRANTED == intent.action)
 				synchronized(this)
 				{
-					val permissionGranted = intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)
+					val permissionGranted = intent.getBooleanExtra(
+						UsbManager.EXTRA_PERMISSION_GRANTED,
+						false
+					)
 					val device = intent.getParcelableExtra<UsbDevice>(UsbManager.EXTRA_DEVICE)
 					if (device != null && UsbDiscoverer.isZebraUsbDevice(device))
 						if (permissionGranted)
-							SelectedPrinterManager
-								.setSelectedPrinter(DiscoveredPrinterUsb(device.deviceName, UsbHelper.getUsbManager(this@MainActivity), device))
+							SelectedPrinterManager.setSelectedPrinter(
+								DiscoveredPrinterUsb(
+									device.deviceName, UsbHelper.getUsbManager(
+										this@MainActivity
+									), device
+								)
+							)
 						else
-							DialogHelper.showErrorDialog(this@MainActivity, getString(R.string.msg_warning_usb_permissions_denied))
-					ProgressOverlayHelper.hideProgressOverlay(progMsg, bannProg)
+							DialogHelper.showErrorDialog(
+								this@MainActivity,
+								getString(R.string.msg_warning_usb_permissions_denied)
+							)
+					ProgressOverlayHelper.hideProgressOverlay(prgMsg, bannerPrg)
 					refreshSelectedPrinterBanner()
 				}
 		}
@@ -105,14 +95,40 @@ class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusLi
 					val usbManager: UsbManager = UsbHelper.getUsbManager(this@MainActivity)
 					if (!usbManager.hasPermission(device))
 					{
-						ProgressOverlayHelper.showProgressOverlay(progMsg, bannProg, getString(R.string.msg_waiting_requesting_usb_permission))
+						ProgressOverlayHelper.showProgressOverlay(
+							prgMsg,
+							bannerPrg,
+							getString(R.string.msg_waiting_requesting_usb_permission)
+						)
 						UsbHelper.requestUsbPermission(this@MainActivity, usbManager, device)
 					}
 					else
 					{
-						SelectedPrinterManager.setSelectedPrinter(DiscoveredPrinterUsb(device.deviceName, UsbHelper.getUsbManager(this@MainActivity), device))
+						SelectedPrinterManager.setSelectedPrinter(
+							DiscoveredPrinterUsb(
+								device.deviceName, UsbHelper.getUsbManager(
+									this@MainActivity
+								), device
+							)
+						)
 						refreshSelectedPrinterBanner()
 					}
+				}
+			}
+		}
+	}
+	private val usbDeviceDetachedReceiver: BroadcastReceiver = object : BroadcastReceiver()
+	{
+		override fun onReceive(context: Context, intent: Intent)
+		{
+			if (UsbManager.ACTION_USB_DEVICE_DETACHED == intent.action)
+			{
+				val device = intent.getParcelableExtra<UsbDevice>(UsbManager.EXTRA_DEVICE)
+				val printer = SelectedPrinterManager.getSelectedPrinter()
+				if (printer is DiscoveredPrinterUsb && UsbDiscoverer.isZebraUsbDevice(device) && printer.device == device)
+				{
+					SelectedPrinterManager.setSelectedPrinter(null)
+					refreshSelectedPrinterBanner()
 				}
 			}
 		}
@@ -124,127 +140,179 @@ class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusLi
 		setContentView(R.layout.activity_main)
 		setSupportActionBar(findViewById(R.id.toolbar))
 
-		// Request permissions for ¿@TODO("Figure out which permissions are requesting")?
 		registerReceivers()
-
 		initComponents()
-		job = Job()
 
 		// Update banner to show
 		refreshSelectedPrinterBanner()
 	}
 
 	// Both for request permissions
-	override fun onPause() { super.onPause(); unregisterReceivers() }
-	override fun onResume() { super.onResume(); registerReceivers() }
+	override fun onPause()  { super.onPause();  unregisterReceivers() }
+	override fun onResume() { super.onResume(); registerReceivers(); refreshSelectedPrinterBanner() }
 
 	// Just for cancel any coroutine in process
-	override fun onDestroy() { super.onDestroy(); job.cancel() }
+	override fun onDestroy() { super.onDestroy(); jobPrinterStatusUpdate.cancel(); jobReconnectPrinter.cancel()}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+	{
+		when (requestCode)
+		{
+			REQUEST_START_ACTIVITY -> if (resultCode == RESULT_OK)
+				{
+					/*
+					* Save "KEY_RESET_PRINNTER" as public static constant of SettingsDemoActivity
+					* to request it as "SettingsDemoActivity.KEY_RESET_PRINTER"
+					* */
+					val resetPrinter = data!!.getBooleanExtra("KEY_RESET_PRINNTER", false)
+					if (reconnectPrinterTask != null)
+						jobReconnectPrinter.cancel()
+					reconnectPrinterTask = ReconnectPrinterTask(SelectedPrinterManager.getSelectedPrinter()!!, resetPrinter)
+					reconnectPrinterTask!!.setOnPrinterDiscoveryListener(this)
+					jobReconnectPrinter = launch { reconnectPrinterTask!!.execute() }
+				}
+				else if (resultCode == RESULT_CANCELED)
+					if (data != null)
+					{
+						val permissionResult = data.getIntExtra(StorageHelper.KEY_STORAGE_PERMISSIONS_RESULT, -1)
+						if (permissionResult == StorageHelper.PERMISSION_DENIED)
+							UIHelper.showSnackbar(this, getString(R.string.storage_permissions_denied))
+						else if (permissionResult == StorageHelper.PERMISSION_NEVER_ASK_AGAIN_SET)
+							UIHelper.showSnackbar(this, getString(R.string.storage_permissions_request_enable_message))
+					}
+		}
+		super.onActivityResult(requestCode, resultCode, data)
+	}
 
 	private fun initComponents()
 	{
 		// Setting banners and its elements
-		bannProg         = findViewById(R.id.bann_prog)
-		bannNoPrinterSel = findViewById(R.id.bann_no_printer_sel)
-		bannPrinterSel   = findViewById(R.id.bann_printer_sel)
-		progMsg          = findViewById(R.id.bann_prog_txt)
-		printerIcon      = findViewById(R.id.bann_printer_sel_icon)
+		bannerNoPrnSel = findViewById(R.id.banner_no_prn_sel)
+		bannerPrnSel   = findViewById(R.id.banner_prn_sel)
+		printerSelIcon = findViewById(R.id.banner_prn_sel_icon)
+		bannerPrg      = findViewById(R.id.banner_prog)
+		prgMsg         = findViewById(R.id.banner_prog_txt)
+
+		// Config buttons to printer connection
+		bannerPrnSel.setOnClickListener { promptDisconnectPrinter() }
+		bannerNoPrnSel.setOnClickListener {
+			startActivity( Intent(this@MainActivity, DiscoverPrintersActivity::class.java)
+				.putExtra("key", "Kotlin"))
+		}
 
 		// Setting RecyclerView w/ its [Card]s
 		zCards = ZCard.createCardsList(10, R.drawable.card_mamalona)
-			.also { it.add(0, ZCard(R.drawable.card_add)) }
+		zCards.add(0, ZCard(R.drawable.card_add))
+
 		val recyclerView = findViewById<RecyclerView>(R.id.recView_zcards)
 		recyclerView.adapter = ZCardAdapter(zCards).apply {
 			this.setOnClickZCardListener { pos ->
 				when (pos)
 				{
-					0 -> Snackbar.make(findViewById<RecyclerView>(R.id.recView_zcards).getChildAt(pos), "U clicked the first one", Snackbar.LENGTH_LONG)
+					0 -> Snackbar.make(
+						recyclerView.getChildAt(pos),
+						"U clicked the first one",
+						Snackbar.LENGTH_LONG
+					)
 						.setAction("Action", null).show()
-					else -> startActivity(Intent(this@MainActivity, FieldsCaptureActivity::class.java)
-						.putExtra("zcardSelected", -1))
+					else -> startActivity(
+						Intent(
+							this@MainActivity,
+							FieldsCaptureActivity::class.java
+						)
+							.putExtra("zcardSelected", -1)
+					)
 				}
 			}
 		}
 		recyclerView.layoutManager = LinearLayoutManager(this)
-
-		// Config button to select printer
-		bannNoPrinterSel.setOnClickListener {
-			startActivity(Intent(this@MainActivity, DiscoverPrintersActivity::class.java)
-					.putExtra("key", "Kotlin"))
-		}
 	}
 
 	private fun refreshSelectedPrinterBanner()
 	{
-		val printer: DiscoveredPrinter? = printerSelected
+		val printer: DiscoveredPrinter? = SelectedPrinterManager.getSelectedPrinter()
 		val isPrinterSelected = printer!=null
 		if (isPrinterSelected)
 		{
-			val printerAddress 	: TextView 	= findViewById(R.id.bann_printer_sel_addR)
-			val printerModel 	: TextView = findViewById(R.id.bann_printer_sel_model)
-			//val printerIcon		: ZebraPrinterView = findViewById(R.id.bann_printer_sel_icon)
+			val printerAddress : TextView = findViewById(R.id.banner_prn_sel_addr)
+			val printerModel   : TextView = findViewById(R.id.banner_prn_sel_model)
 
 			val address = printer!!.discoveryDataMap["ADDRESS"]
 			val model   = printer.discoveryDataMap["MODEL"]
-
-			printerAddress.visibility = if (address != null && address.isNotEmpty()) View.VISIBLE else View.GONE
+			printerAddress.visibility = if (address!=null && address.isNotEmpty()) View.VISIBLE else View.GONE
+			printerModel.visibility = if (model!=null && model.isNotEmpty()) View.VISIBLE else View.GONE
 			printerAddress.text = address
-			printerModel.visibility = if (model != null && model.isNotEmpty()) View.VISIBLE else View.GONE
 			printerModel.text = model
-			printerIcon.setPrinterModel(model)
-            if (reconnectPrinterTask == null || reconnectPrinterTask.isBackgroundTaskFinished())
+			printerSelIcon.setPrinterModel(model)
+
+            if (reconnectPrinterTask==null || reconnectPrinterTask!!.isBackgroundTaskFinished())
             {
-				job.cancel()
+				jobPrinterStatusUpdate.cancel()
 				printerStatusUpdateTask = PrinterStatusUpdateTask(this@MainActivity, printer)
                 printerStatusUpdateTask!!.setOnUpdatePrinterStatusListener(this)
-				launch{ printerStatusUpdateTask?.printerStatusUpdate() }
+				jobPrinterStatusUpdate = launch{ printerStatusUpdateTask!!.execute() }
             }
 		}
 
-		bannPrinterSel.visibility = if (isPrinterSelected) View.VISIBLE else View.GONE
-		bannNoPrinterSel.visibility = if (isPrinterSelected) View.GONE else View.VISIBLE
-		bannProg.visibility = View.GONE
+		bannerPrnSel.visibility   = if (isPrinterSelected) View.VISIBLE else View.GONE
+		bannerNoPrnSel.visibility = if (isPrinterSelected) View.GONE else View.VISIBLE
+		bannerPrg.visibility = View.GONE
 	}
 
 	override fun onUpdatePrinterStatusStarted()
-	{ printerIcon.printerStatus = ZebraPrinterView.PrinterStatus.REFRESHING }
+		{ printerSelIcon.printerStatus = ZebraPrinterView.PrinterStatus.REFRESHING }
 
-	override fun onUpdatePrinterStatusFinished(exception: java.lang.Exception?, printerStatus: ZebraPrinterView.PrinterStatus?)
+	override fun onUpdatePrinterStatusFinished(exception: java.lang.Exception?, printerStatus: ZebraPrinterView.PrinterStatus)
 	{
 		if (exception != null)
 		{
-			DialogHelper.showErrorDialog(this, getString(R.string.msg_error_updating_printer_status, exception.message))
+			DialogHelper.showErrorDialog(this, getString(
+					R.string.msg_error_updating_printer_status,
+					exception.message
+				))
 			SelectedPrinterManager.setSelectedPrinter(null)
 			refreshSelectedPrinterBanner()
 		}
 		else
 		{
-			printerIcon.printerStatus = printerStatus
+			printerSelIcon.printerStatus = printerStatus
 //			updateDemoButtons()
 		}
 	}
 
-	override fun onReconnectPrinterStarted() {
+	override fun onReconnectPrinterStarted()
+	{
 		refreshSelectedPrinterBanner()
-		ProgressOverlayHelper.showProgressOverlay(progMsg, bannProg, getString(R.string.msg_waiting_reconnecting_to_printer))
+		ProgressOverlayHelper.showProgressOverlay(prgMsg, bannerPrg, getString(R.string.msg_waiting_reconnecting_to_printer))
 	}
 
-	override fun onReconnectPrinterFinished(exception: Exception?) {
-		ProgressOverlayHelper.hideProgressOverlay(progMsg, bannProg)
+	override fun onReconnectPrinterFinished(exception: Exception?)
+	{
+		ProgressOverlayHelper.hideProgressOverlay(prgMsg, bannerPrg)
 		if (exception != null)
 		{
-			DialogHelper.showErrorDialog(this, getString(R.string.msg_error_reconnecting_to_printer, exception.message))
+			DialogHelper.showErrorDialog(this, getString(
+					R.string.msg_error_reconnecting_to_printer,
+					exception.message
+				))
 			SelectedPrinterManager.setSelectedPrinter(null)
 		}
-
 		refreshSelectedPrinterBanner()
+	}
+
+	private fun promptDisconnectPrinter()
+	{
+		DialogHelper.createDisconnectDialog(this, DialogInterface.OnClickListener { _, _ ->
+			SelectedPrinterManager.setSelectedPrinter(null)
+			refreshSelectedPrinterBanner()
+		})?.show()
 	}
 
 	private fun registerReceivers()
 	{
 		var filter = IntentFilter()
 		filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
-		registerReceiver(usbDisconnectReceiver, filter)
+		registerReceiver(usbDeviceDetachedReceiver, filter)
 		filter = IntentFilter()
 		filter.addAction(UsbHelper.ACTION_USB_PERMISSION_GRANTED)
 		registerReceiver(usbPermissionReceiver, filter)
@@ -253,8 +321,23 @@ class MainActivity: AppCompatActivity(), CoroutineScope, OnUpdatePrinterStatusLi
 		registerReceiver(usbDeviceAttachedReceiver, filter)
 	}
 	private fun unregisterReceivers() {
-		unregisterReceiver(usbDisconnectReceiver)
+		unregisterReceiver(usbDeviceDetachedReceiver)
 		unregisterReceiver(usbPermissionReceiver)
 		unregisterReceiver(usbDeviceAttachedReceiver)
 	}
+
+//	private fun updateDemoButtons()
+//	{
+//		val isReconnecting =
+//			reconnectPrinterTask != null && !reconnectPrinterTask!!.isBackgroundTaskFinished()
+//		val enabled =
+//			bannerPrnSel.visibility == View.VISIBLE && printerSelIcon.printerStatus != ZebraPrinterView.PrinterStatus.REFRESHING && !isReconnecting
+////		magEncodeDemoButton.setEnabled(enabled)
+////		multiJobDemoButton.setEnabled(enabled)
+////		printDemoButton.setEnabled(enabled)
+////		printerStatusDemoButton.setEnabled(enabled)
+////		settingsDemoButton.setEnabled(enabled)
+////		templateDemoButton.setEnabled(enabled)
+////		smartCardDemoButton.setEnabled(enabled)
+//	}
 }

@@ -17,13 +17,13 @@ class PrinterStatusUpdateTask(context: Context, private val printer: DiscoveredP
 	private var onUpdatePrinterStatusListener: OnUpdatePrinterStatusListener? = null
 	private var exception: java.lang.Exception? = null
 
-	suspend fun printerStatusUpdate()
+	suspend fun execute()
 	{
 		onUpdatePrinterStatusListener?.onUpdatePrinterStatusStarted()
 
 		var connection: Connection? = null
 		var zebraCardPrinter: ZebraCardPrinter? = null
-		var zebraViewerStatus :ZebraPrinterView.PrinterStatus? = ZebraPrinterView.PrinterStatus.UNKNOWN
+		var zebraViewerStatus :ZebraPrinterView.PrinterStatus = ZebraPrinterView.PrinterStatus.UNKNOWN
 
 		try
 		{
@@ -51,13 +51,12 @@ class PrinterStatusUpdateTask(context: Context, private val printer: DiscoveredP
 
 	}
 
-	fun setOnUpdatePrinterStatusListener(onUpdatePrinterStatusListener: OnUpdatePrinterStatusListener?) {
-		this.onUpdatePrinterStatusListener = onUpdatePrinterStatusListener
-	}
+	fun setOnUpdatePrinterStatusListener(onUpdatePrinterStatusListener: OnUpdatePrinterStatusListener?)
+		{ this.onUpdatePrinterStatusListener = onUpdatePrinterStatusListener }
 
 	interface OnUpdatePrinterStatusListener
 	{
 		fun onUpdatePrinterStatusStarted()
-		fun onUpdatePrinterStatusFinished(exception: java.lang.Exception?, printerStatus: ZebraPrinterView.PrinterStatus?)
+		fun onUpdatePrinterStatusFinished(exception: java.lang.Exception?, printerStatus: ZebraPrinterView.PrinterStatus)
 	}
 }

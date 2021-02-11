@@ -14,15 +14,17 @@ import kotlinx.coroutines.delay
 
 class ReconnectPrinterTask(private val printer: DiscoveredPrinter, private val resetPrinter: Boolean = false)
 {
-	private val WAITTIMEPRINTERRESET: Long = 5000
-	private val TIMEOUTNETWORKREESTABLISHMENT: Long = 60000
+	companion object
+	{
+		private const val WAIT_TIME_PRINTER_RESET: Long = 5000
+		private const val TIME_OUT_NETWORK_REESTABLISHMENT: Long = 60000
+	}
 
 	private var onPrinterDiscoveryListener: OnReconnectPrinterListener? = null
-
 	private var exception: java.lang.Exception? = null
 	private var isBackgroundTaskFinished = false
 
-	suspend fun printerStatusUpdate()
+	suspend fun execute()
 	{
 		onPrinterDiscoveryListener?.onReconnectPrinterStarted()
 
@@ -33,12 +35,14 @@ class ReconnectPrinterTask(private val printer: DiscoveredPrinter, private val r
 			connection.open()
 			zebraPrinterZmotif = ZebraCardPrinterFactory.getZmotifPrinter(connection)
 			zebraPrinterZmotif.resetNetwork()
-			delay(WAITTIMEPRINTERRESET)
+			delay(WAIT_TIME_PRINTER_RESET)
 			if (printer is DiscoveredCardPrinterNetwork)
 			{
 				val reconnectionHandler = ReconnectionHandler()
-				val reestablisher = connection.getConnectionReestablisher(TIMEOUTNETWORKREESTABLISHMENT) as CardConnectionReestablisher
-				reestablisher.reestablishConnection(reconnectionHandler)
+				val reestablishment = connection.getConnectionReestablisher(
+					TIME_OUT_NETWORK_REESTABLISHMENT
+				) as CardConnectionReestablisher
+				reestablishment.reestablishConnection(reconnectionHandler)
 				ConnectionHelper.cleanUpQuietly(zebraPrinterZmotif, connection)
 				while (!reconnectionHandler.isPrinterOnline())
 					delay(100)

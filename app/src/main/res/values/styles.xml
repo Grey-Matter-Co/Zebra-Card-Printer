@@ -16,7 +16,7 @@
     <style name="BannerContainer.Error">
         <item name="android:background">@color/red_600</item>
     </style>
-    <style name="BannerIcon">
+    <style name="banner_prog_icon">
         <item name="android:layout_width">@dimen/banner_icon_size</item>
         <item name="android:layout_height">@dimen/banner_icon_size</item>
         <item name="android:padding">@dimen/banner_icon_padding</item>

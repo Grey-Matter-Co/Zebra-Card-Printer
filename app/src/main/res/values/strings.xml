@@ -28,4 +28,20 @@
     <!--  Text Sample  -->
     <string name="short_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
     <string name="desc_printer_image">Printer Image</string>
+    <string name="printer_model_not_supported">Printer model not supported</string>
+    <string name="no_printer_model_found">No printer model found</string>
+    <string name="connecting_to_printer">Connecting to printer&#8230;</string>
+    <string name="error_manually_connecting_message">Error manually connecting to printer: %1$s</string>
+    <string name="error_discovering_printers_message">Error discovering printers: %1$s</string>
+    <string name="connect">Connect</string>
+    <string name="printer_ip_address">Printer IP Address</string>
+    <string name="dialog_title_manually_connect">Manually Connect to Printer</string>
+    <string name="discovered_printers">Discovered Printers</string>
+    <string name="no_printers_found">No Printers Found</string>
+	<string name="storage_permissions_granted">Storage permissions granted</string>
+    <string name="storage_permissions_denied">Storage permissions denied</string>
+    <string name="storage_permissions_request_enable_message">Storage permissions denied automatically due to \"Never ask again\" being enabled. Grant the permission in your device settings to proceed.</string>
+    <string name="dialog_title_disconnect_printer">Disconnect Printer?</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="dialog_message_disconnect_printer">This will disconnect the current printer.</string>
 </resources>

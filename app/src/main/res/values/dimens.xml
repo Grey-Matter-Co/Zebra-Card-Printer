@@ -16,7 +16,7 @@
     <dimen name="banner_size">56dp</dimen>
     <dimen name="banner_elevation">8dp</dimen>
 	<dimen name="banner_icon_size">32dp</dimen>
-    <dimen name="banner_icon_padding">@dimen/spacing_medium</dimen>
+    <dimen name="banner_icon_padding">@dimen/spacing_small</dimen>
     <dimen name="banner_text_size">18sp</dimen>
     <dimen name="radius_corner">@dimen/spacing_middle</dimen>
     <dimen name="fab_margin">16dp</dimen>
