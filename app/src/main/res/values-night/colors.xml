@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    &lt;!&ndash; Primary brand color. &ndash;&gt;-->
-<!--    <color name="colorPrimary">@color/purple_200</color>-->
-<!--    <color name="colorPrimaryVariant">@color/purple_700</color>-->
-<!--    <color name="colorOnPrimary">@color/black</color>-->
-<!--    &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
-<!--    <color name="colorSecondary">@color/teal_200</color>-->
-<!--    <color name="colorSecondaryVariant">@color/teal_200</color>-->
-<!--    <color name="colorOnSecondary">@color/black</color>-->
+    <!-- Primary brand color. -->
+    <color name="colorPrimary">@color/purple_200</color>
+    <color name="colorPrimaryVariant">@color/purple_700</color>
+    <color name="colorOnPrimary">@color/black</color>
+    <!-- Secondary brand color. -->
+    <color name="colorSecondary">@color/teal_200</color>
+    <color name="colorSecondaryVariant">@color/teal_200</color>
+    <color name="colorOnSecondary">@color/black</color>
     
     <color name="transparent_white_overlay">#EF000000</color>
 	<color name="shadow_overlay">#80FFFFFF</color>

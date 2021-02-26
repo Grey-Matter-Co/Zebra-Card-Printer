@@ -20,9 +20,7 @@ class NetworkAndUsbDiscoveryTask internal constructor(private val usbManager: Us
 
 	suspend fun execute()
 	{
-		if (onPrinterDiscoveryListener != null) {
-			onPrinterDiscoveryListener!!.onPrinterDiscoveryStarted()
-		}
+		onPrinterDiscoveryListener!!.onPrinterDiscoveryStarted()
 		try
 		{
 			UsbDiscoverer.findPrinters(usbManager, object : DiscoveryHandler
@@ -57,12 +55,11 @@ class NetworkAndUsbDiscoveryTask internal constructor(private val usbManager: Us
 			}
 			catch (e: DiscoveryException)
 			{ onNetworkDiscoveryComplete() }
-//			discoveryCompleteLatch.await()
+			discoveryCompleteLatch.await()
 		}
 		catch (e: Exception)
 			{ exception = e }
-		if (onPrinterDiscoveryListener != null)
-			onPrinterDiscoveryListener!!.onPrinterDiscoveryFinished(exception)
+		onPrinterDiscoveryListener!!.onPrinterDiscoveryFinished(exception)
 	}
 
 	private fun onUsbDiscoveryComplete()

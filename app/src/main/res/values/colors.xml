@@ -47,4 +47,5 @@
     <color name="grey_95">#1a1a1a</color>
     <color name="bannerText"> @color/grey_5</color>
     <color name="shadow_overlay">#80000000</color>
+	<color name="zebra_blue">#007BC0</color>
 </resources>

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter
 import com.zebra.sdk.printer.discovery.DiscoveredPrinterUsb
 import com.zebra.sdk.printer.discovery.UsbDiscoverer
@@ -29,10 +30,7 @@ import isv.zebra.com.zebracardprinter.zebra.discovery.SelectedPrinterManager
 import isv.zebra.com.zebracardprinter.zebra.util.DialogHelper
 import isv.zebra.com.zebracardprinter.zebra.util.ProgressOverlayHelper
 import isv.zebra.com.zebracardprinter.zebra.util.UsbHelper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class DiscoverPrintersActivity : AppCompatActivity(), NetworkAndUsbDiscoveryTask.OnPrinterDiscoveryListener, ManualConnectionTask.OnManualConnectionListener, CoroutineScope
@@ -40,9 +38,15 @@ class DiscoverPrintersActivity : AppCompatActivity(), NetworkAndUsbDiscoveryTask
 	private var isApplicationBusy = false
 
 	//For Coroutines
-	private var jobManualConnection: Job       = Job()
+//	private var job: Job = Job()
+	private var jobManualConnection: Job = Job()
 	private var jobNetworkAndUsbDiscovery: Job = Job()
-	override val coroutineContext: CoroutineContext = Job()+Dispatchers.Main
+//	private var manualConnectionT: Deferred<Unit>? = null
+	private var networkAndUsbDiscoveryT: Deferred<Unit>? = null
+//	private var jobManualConnection: Job       = Job()
+//	private var jobNetworkAndUsbDiscovery: Job = Job()
+	override val coroutineContext: CoroutineContext
+		get() = Job()+Dispatchers.IO
 
 	private lateinit var manualConnectionTask: ManualConnectionTask
 	private lateinit var networkAndUsbDiscoveryTask: NetworkAndUsbDiscoveryTask
@@ -191,10 +195,10 @@ class DiscoverPrintersActivity : AppCompatActivity(), NetworkAndUsbDiscoveryTask
 	override fun onPrinterDiscovered(printer: DiscoveredPrinter?)
 	{
 		runOnUiThread {
+			Snackbar.make(pullToRefresh, "printer found", Snackbar.LENGTH_SHORT).show()
 			discoveredPrinters.add(printer!!)
-			discoveredPrinterAdapter.notifyItemChanged(discoveredPrinters.size-1)
-			if (discoveredPrinters.size==1)
-			{
+			discoveredPrinterAdapter.notifyItemInserted(discoveredPrinters.lastIndex)
+			if (discoveredPrinters.size==1) {
 				emptyListView.visibility = View.GONE
 				recyclerView.visibility = View.VISIBLE
 			}
@@ -219,10 +223,17 @@ class DiscoverPrintersActivity : AppCompatActivity(), NetworkAndUsbDiscoveryTask
 					val ipAddress = printerDnsIpAddressInput!!.text
 
 					jobManualConnection.cancel()
-					manualConnectionTask =
-						ManualConnectionTask(this@DiscoverPrintersActivity, ipAddress)
+					manualConnectionTask = ManualConnectionTask(this@DiscoverPrintersActivity, ipAddress)
 					manualConnectionTask.setOnManualConnectionListener(this@DiscoverPrintersActivity)
 					jobManualConnection = launch { manualConnectionTask.execute() }
+//					launch {
+//						manualConnectionT?.cancel()
+//	//					jobManualConnection.cancel()
+//						manualConnectionTask =
+//							ManualConnectionTask(this@DiscoverPrintersActivity, ipAddress)
+//						manualConnectionTask.setOnManualConnectionListener(this@DiscoverPrintersActivity)
+//						manualConnectionT = async { manualConnectionTask.execute() }
+//					}
 				}).show()
 		}
 	}
@@ -239,6 +250,12 @@ class DiscoverPrintersActivity : AppCompatActivity(), NetworkAndUsbDiscoveryTask
 		networkAndUsbDiscoveryTask = NetworkAndUsbDiscoveryTask(UsbHelper.getUsbManager(this@DiscoverPrintersActivity))
 		networkAndUsbDiscoveryTask.setOnPrinterDiscoveryListener(this@DiscoverPrintersActivity)
 		jobNetworkAndUsbDiscovery = launch { networkAndUsbDiscoveryTask.execute() }
+//		launch {
+//			networkAndUsbDiscoveryT?.cancel()
+//			networkAndUsbDiscoveryTask = NetworkAndUsbDiscoveryTask(UsbHelper.getUsbManager(this@DiscoverPrintersActivity))
+//			networkAndUsbDiscoveryTask.setOnPrinterDiscoveryListener(this@DiscoverPrintersActivity)
+//			networkAndUsbDiscoveryT = async { networkAndUsbDiscoveryTask.execute() }
+//		}
 	}
 
 	private fun startRefreshAnimation()
@@ -268,4 +285,6 @@ class DiscoverPrintersActivity : AppCompatActivity(), NetworkAndUsbDiscoveryTask
 		unregisterReceiver(usbDisconnectReceiver)
 		unregisterReceiver(usbPermissionReceiver)
 	}
+
+//	fun <T> CoroutineScope.asyncIO(ioFun: () -> T) = async(Dispatchers.IO) { ioFun() }
 }

@@ -13,10 +13,10 @@
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@+id/pullToRefresh_printers"
 		android:layout_width="match_parent" android:layout_height="match_parent"
 		android:layout_marginTop="?attr/actionBarSize" >
-		<LinearLayout android:id="@+id/noPrintersFoundContainer"
+		<LinearLayout
 			android:layout_width="match_parent" android:layout_height="match_parent"
 			android:orientation="vertical">
-			<LinearLayout
+			<LinearLayout android:id="@+id/noPrintersFoundContainer"
 				android:layout_width="match_parent" android:layout_height="wrap_content"
 				android:paddingVertical="@dimen/zebra_field_padding_vertical"
 				android:paddingHorizontal="@dimen/zebra_field_padding_horizontal"
@@ -36,7 +36,7 @@
 			<androidx.recyclerview.widget.RecyclerView android:id="@+id/recView_discovered_printers"
 				android:layout_width="match_parent" android:layout_height="match_parent"
 				android:scrollbars="vertical" android:scrollingCache="true"
-				android:visibility="gone"
+				android:visibility="visible"
 				app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 		</LinearLayout>
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

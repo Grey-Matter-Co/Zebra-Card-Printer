@@ -22,4 +22,15 @@
     <dimen name="fab_margin">16dp</dimen>
 	<dimen name="card_width">342.4dp</dimen>
     <dimen name="card_height">215.92dp</dimen>
+	<dimen name="container_margin">8dp</dimen>
+	<dimen name="divider_width">2dp</dimen>
+	<dimen name="chevron_button_height">60dp</dimen>
+	<dimen name="field_padding_horizontal">12dp</dimen>
+	<dimen name="custom_button_text">18sp</dimen>
+	<dimen name="zebra_heading_text">22sp</dimen>
+	<dimen name="chevron_button_icon_size">32dp</dimen>
+	<dimen name="edit_text_padding_horizontal">8dp</dimen>
+	<dimen name="field_padding_vertical">10dp</dimen>
+	<dimen name="field_header_text">14sp</dimen>
+	<dimen name="job_status_log_text">12sp</dimen>
 </resources>

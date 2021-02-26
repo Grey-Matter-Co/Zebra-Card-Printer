@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="isv.zebra.com.zebracardprinter">
+	xmlns:tools="http://schemas.android.com/tools"
+	package="isv.zebra.com.zebracardprinter">
 
-    <uses-feature
-        android:name="android.hardware.usb.host"
-        android:required="false" />
+	<uses-feature
+		android:name="android.hardware.usb.host"
+		android:required="false" /> <!-- <uses-permission android:name="android.permission.BLUETOOTH" /> -->
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-<!--    <uses-permission android:name="android.permission.BLUETOOTH" />-->
-<!--    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />-->
-    <uses-permission android:name="android.permission.INTERNET" />
-<!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
-<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+	<application
+		android:allowBackup="true"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:roundIcon="@mipmap/ic_launcher_round"
+		android:supportsRtl="true"
+		android:theme="@style/Theme.ZebraCardPrinter"
+		tools:replace="android:supportsRtl">
+		<activity android:name=".activity.Send2PrintActivity"></activity>
+		<activity
+			android:name=".activity.FieldsCaptureActivity"
+			android:label="@string/title_activity_fields_capture"
+			android:screenOrientation="portrait"
+			android:theme="@style/Theme.ZebraCardPrinter.NoActionBar" />
+		<activity
+			android:name=".activity.DiscoverPrintersActivity"
+			android:label="@string/title_activity_discovery_printer"
+			android:theme="@style/Theme.ZebraCardPrinter.NoActionBar" />
+		<activity
+			android:name=".MainActivity"
+			android:label="@string/app_name"
+			android:theme="@style/Theme.ZebraCardPrinter.NoActionBar">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        tools:replace="android:supportsRtl"
-        android:theme="@style/Theme.ZebraCardPrinter">
-        <activity
-            android:name=".activity.FieldsCaptureActivity"
-            android:label="@string/title_activity_fields_capture"
-            android:theme="@style/Theme.ZebraCardPrinter.NoActionBar"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.DiscoverPrintersActivity"
-            android:label="@string/title_activity_discovery_printer"
-            android:theme="@style/Theme.ZebraCardPrinter.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.ZebraCardPrinter.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+	</application>
 
 </manifest>

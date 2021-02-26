@@ -1,47 +1,113 @@
 <resources>
-    <string name="app_name">Zebra Card Printer</string>
+	<string name="app_name">Zebra Card Printer</string>
 
-    <!--  Activity Tittles  -->
-    <string name="title_activity_discovery_printer">PrinterSelecterActivity</string>
-    <string name="title_activity_fields_capture">ParametrosActivity</string>
+	<!--  Activity Tittles  -->
+	<string name="title_activity_discovery_printer">PrinterSelecterActivity</string>
+	<string name="title_activity_fields_capture">ParametrosActivity</string>
 
-    <!--  Values Banners  -->
-    <string name="printer_model">Printer Model</string>
-    <string name="printer_address">255.255.255.255</string>
-    <string name="no_printer_selected">No Printer Selected</string>
-    <string name="progress_sample">progress text…</string>
+	<!--  Values Banners  -->
+	<string name="printer_model">Printer Model</string>
+	<string name="printer_address">255.255.255.255</string>
+	<string name="no_printer_selected">No Printer Selected</string>
+	<string name="progress_sample">progress text…</string>
 
-    <!--  Printer Status Messages  -->
-    <string name="error">Error</string>
-    <string name="msg_waiting_reconnecting_to_printer">Reconnecting to printer&#8230;</string>
-    <string name="msg_waiting_requesting_usb_permission">Requesting USB permission&#8230;</string>
-    <string name="msg_unable_to_communicate_with_printer">Unable to communicate with printer. Check your connection.</string>
-    <string name="msg_error_reconnecting_to_printer">Error reconnecting to printer: %1$s</string>
-    <string name="msg_error_updating_printer_status">Error updating printer status: %1$s</string>
-    <string name="msg_warning_usb_permissions_denied">USB permissions denied. Please authorize USB permissions to be able to connect to a printer via USB.</string>
+	<!--  Printer Status Messages  -->
+	<string name="error">Error</string>
+	<string name="msg_waiting_reconnecting_to_printer">Reconnecting to printer&#8230;</string>
+	<string name="msg_waiting_requesting_usb_permission">Requesting USB permission&#8230;</string>
+	<string name="msg_unable_to_communicate_with_printer">Unable to communicate with printer. Check your connection.</string>
+	<string name="msg_error_reconnecting_to_printer">Error reconnecting to printer: %1$s</string>
+	<string name="msg_error_updating_printer_status">Error updating printer status: %1$s</string>
+	<string name="msg_warning_usb_permissions_denied">USB permissions denied. Please authorize USB permissions to be able to connect to a printer via USB.</string>
 
-    <!--  Image Descriptions  -->
-    <string name="desc_no_printer_icon">No Printer Icon</string>
-    <string name="desc_bg_card">Background Card</string>
+	<!--  Image Descriptions  -->
+	<string name="desc_no_printer_icon">No Printer Icon</string>
+	<string name="desc_bg_card">Background Card</string>
 
-    <!--  TODO(Remove these at end of development project)  -->
-    <!--  Text Sample  -->
-    <string name="short_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
-    <string name="desc_printer_image">Printer Image</string>
-    <string name="printer_model_not_supported">Printer model not supported</string>
-    <string name="no_printer_model_found">No printer model found</string>
-    <string name="connecting_to_printer">Connecting to printer&#8230;</string>
-    <string name="error_manually_connecting_message">Error manually connecting to printer: %1$s</string>
-    <string name="error_discovering_printers_message">Error discovering printers: %1$s</string>
-    <string name="connect">Connect</string>
-    <string name="printer_ip_address">Printer IP Address</string>
-    <string name="dialog_title_manually_connect">Manually Connect to Printer</string>
-    <string name="discovered_printers">Discovered Printers</string>
-    <string name="no_printers_found">No Printers Found</string>
+	<!--  TODO(Remove these at end of development project)  -->
+	<!--  Text Sample  -->
+	<string name="short_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+	<string name="desc_printer_image">Printer Image</string>
+	<string name="printer_model_not_supported">Printer model not supported</string>
+	<string name="no_printer_model_found">No printer model found</string>
+	<string name="connecting_to_printer">Connecting to printer&#8230;</string>
+	<string name="error_manually_connecting_message">Error manually connecting to printer: %1$s</string>
+	<string name="error_discovering_printers_message">Error discovering printers: %1$s</string>
+	<string name="connect">Connect</string>
+	<string name="printer_ip_address">Printer IP Address</string>
+	<string name="dialog_title_manually_connect">Manually Connect to Printer</string>
+	<string name="discovered_printers">Discovered Printers</string>
+	<string name="no_printers_found">No Printers Found</string>
 	<string name="storage_permissions_granted">Storage permissions granted</string>
-    <string name="storage_permissions_denied">Storage permissions denied</string>
-    <string name="storage_permissions_request_enable_message">Storage permissions denied automatically due to \"Never ask again\" being enabled. Grant the permission in your device settings to proceed.</string>
-    <string name="dialog_title_disconnect_printer">Disconnect Printer?</string>
-    <string name="disconnect">Disconnect</string>
-    <string name="dialog_message_disconnect_printer">This will disconnect the current printer.</string>
+	<string name="storage_permissions_denied">Storage permissions denied</string>
+	<string name="storage_permissions_request_enable_message">Storage permissions denied automatically due to \"Never ask again\" being enabled. Grant the permission in your device settings to proceed.</string>
+	<string name="dialog_title_disconnect_printer">Disconnect Printer?</string>
+	<string name="disconnect">Disconnect</string>
+	<string name="dialog_message_disconnect_printer">This will disconnect the current printer.</string>
+	<string name="storage_error">Storage Error</string>
+	<string name="storage_error_message">Unable to write to external storage; external storage unavailable</string>
+	<string name="checking_printer_status">Checking printer status&#8230;</string>
+	<string name="printer_not_ready_message">%1$s (%2$s). Please fix the issue and try again.</string>
+	<string name="polling_job_status">Polling status for job ID %1$d&#8230;</string>
+	<string name="alarm_error_value_and_description">%1$d (%2$s)</string>
+	<string name="job_status_message">Job ID %1$d: status:%2$s, position:%3$s, contact:%4$s, contactless:%5$s, alarm:%6$s, error:%7$s</string>
+	<string name="job_id_completed">Job ID %1$d completed.</string>
+	<string name="job_id_completed_with_error_message">Job ID %1$d completed with error: %2$s</string>
+	<string name="job_id_cancelled_with_error_message">Job ID %1$d cancelled with error: %2$s</string>
+	<string name="job_id_cancelled">Job ID %1$d cancelled.</string>
+	<string name="job_id_timed_out_message">Job ID %1$d timed out waiting for a card and was cancelled.</string>
+	<string name="job_status_polling_cancelled">Job status polling cancelled.</string>
+	<string name="alarm_encountered">Alarm Encountered</string>
+	<string name="alarm_encountered_message">Job ID %1$d encountered alarm [%2$s]. Either fix the alarm and click %3$s once the job begins again or click %4$s to cancel the job.</string>
+	<string name="card_at_station">Card at Station</string>
+	<string name="card_at_station_message">Click %1$s to resume the job or click %2$s to cancel the job.</string>
+	<string name="resume">Resume</string>
+	<string name="job_status_log">Job Status Log</string>
+	<string name="print">Print</string>
+
+	<!-- Mag encode demo -->
+	<string name="mag_encode_demo">Mag Encode Demo</string>
+	<string name="verify_encoding">Verify Encoding</string>
+	<string name="reading_mag_encode_data">Reading mag encode data&#8230;</string>
+	<string name="writing_mag_encode_data">Writing mag encode data&#8230;</string>
+	<string name="insert_card">Insert Card</string>
+	<string name="insert_card_into_atm_slot_message">Please insert a card into the ATM slot.</string>
+	<string name="mag_encode_job">Mag Encode Job</string>
+	<string name="read">Read</string>
+	<string name="write">Write</string>
+	<string name="source">Source</string>
+	<string name="destination">Destination</string>
+	<string name="coercivity_type">Coercivity Type</string>
+	<string name="quantity">Quantity</string>
+	<string name="track_1_data">Track 1 Data</string>
+	<string name="track_2_data">Track 2 Data</string>
+	<string name="track_3_data">Track 3 Data</string>
+	<string name="error_reading_mag_encode_data_message">Error reading mag encode data: %1$s</string>
+	<string name="error_writing_mag_encode_data_message">Error writing mag encode data: %1$s</string>
+	<string name="mag_encode_job_sent_successfully">Mag encode job sent successfully</string>
+	<string name="mag_encode_data_read_successfully">Mag encode data read successfully</string>
+	<string name="no_data_read_from_card">No data read from card.</string>
+	<string name="no_magnetic_track_data_to_encode">No magnetic track data to encode.</string>
+	<string name="no_magnetic_encoder_found_error">Unable to proceed with demo because no magnetic encoder was found.</string>
+
+
+	<!-- Print YMCKO / Mono demo -->
+	<string name="print_ymcko_mono_demo">Print YMCKO / Mono Demo</string>
+	<string name="print_front_side">Print Front Side</string>
+	<string name="print_front_side_overlay">Print Front Side Overlay</string>
+	<string name="print_back_side_mono">Print Back Side (Mono)</string>
+	<string name="front_side_graphic_file">Front Side Graphic File</string>
+	<string name="front_side_overlay_graphic_file">Front Side Overlay Graphic File</string>
+	<string name="back_side_graphic_file">Back Side Graphic File</string>
+	<string name="select_graphic_file">Select Graphic File</string>
+	<string name="sending_print_job_to_printer">Sending print job to printer&#8230;</string>
+	<string name="print_job_sent_successfully">Print job sent successfully</string>
+	<string name="error_printing_card_message">Error printing card: %1$s</string>
+
+	<!-- Printer status media -->
+	<string name="type">Type</string>
+	<string name="initial_size">Initial Size</string>
+	<string name="panels_remaining">Panels Remaining</string>
+	<string name="description">Description</string>
+	<string name="part_number">Part Number</string>
 </resources>

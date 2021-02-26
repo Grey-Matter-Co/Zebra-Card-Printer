@@ -19,13 +19,9 @@ object StorageHelper {
 		get() = Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()
 
 	fun requestStoragePermissionIfNotGranted(activity: Activity?, requestCode: Int) {
-		if (ContextCompat.checkSelfPermission(
-				activity!!,
-				Manifest.permission.WRITE_EXTERNAL_STORAGE
-			) !== PackageManager.PERMISSION_GRANTED
-		) {
+		if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 			ActivityCompat.requestPermissions(
-				activity!!,
+				activity,
 				arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
 				requestCode
 			)

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:focusable="true"
+	android:focusableInTouchMode="true">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/container_margin"
+		android:background="@android:color/white"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/chevron_button_height"
+			android:gravity="center_vertical"
+			android:paddingHorizontal="@dimen/field_padding_horizontal"
+			android:text="@string/print_ymcko_mono_demo"
+			android:textAllCaps="true"
+			android:textColor="@color/zebra_blue"
+			android:textSize="@dimen/custom_button_text"
+			android:textStyle="bold" />
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/divider_width"
+			android:background="@color/zebra_blue" />
+
+		<FrameLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1">
+
+			<ScrollView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/chevron_button_height"
+						android:gravity="center_vertical">
+
+						<TextView
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:layout_marginHorizontal="@dimen/field_padding_horizontal"
+							android:text="@string/print_front_side"
+							android:textSize="@dimen/zebra_heading_text"
+							android:textStyle="bold" />
+
+						<Switch
+							android:id="@+id/printFrontSideSwitch"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginEnd="@dimen/field_padding_horizontal"
+							android:checked="false" />
+
+					</LinearLayout>
+
+					<RelativeLayout
+						android:id="@+id/frontSideImageFileContainer"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+
+						<com.zebra.zebraui.ZebraEditText
+							android:id="@+id/frontSideImageFileEditText"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginEnd="@dimen/chevron_button_icon_size"
+							android:inputType="none"
+							app:zebraHasUnderline="false"
+							app:zebraHeaderText="@string/front_side_graphic_file" />
+
+						<ImageView
+							android:id="@+id/frontSideImageFileBrowseButton"
+							android:layout_width="@dimen/chevron_button_icon_size"
+							android:layout_height="@dimen/chevron_button_icon_size"
+							android:layout_marginEnd="@dimen/edit_text_padding_horizontal"
+							android:layout_alignParentEnd="true"
+							android:layout_centerVertical="true"
+							android:clickable="true"
+							android:focusable="true"
+							android:background="?attr/selectableItemBackgroundBorderless"
+							android:src="@drawable/ic_search_file" />
+
+					</RelativeLayout>
+
+					<com.zebra.zebraui.ZebraSpinnerView
+						android:id="@+id/frontSideTypesSpinner"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						app:zebraHeaderText="@string/type"
+						app:zebraHasUnderline="false" />
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/chevron_button_height"
+						android:gravity="center_vertical">
+
+						<TextView
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:layout_marginHorizontal="@dimen/field_padding_horizontal"
+							android:text="@string/print_front_side_overlay"
+							android:textSize="@dimen/zebra_heading_text"
+							android:textStyle="bold" />
+
+						<Switch
+							android:id="@+id/printFrontSideOverlaySwitch"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginEnd="@dimen/field_padding_horizontal"
+							android:checked="false" />
+
+					</LinearLayout>
+
+					<RelativeLayout
+						android:id="@+id/frontSideOverlayImageFileContainer"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+
+						<com.zebra.zebraui.ZebraEditText
+							android:id="@+id/frontSideOverlayImageFile"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginEnd="@dimen/chevron_button_icon_size"
+							android:inputType="none"
+							app:zebraHasUnderline="false"
+							app:zebraHeaderText="@string/front_side_overlay_graphic_file" />
+
+						<ImageView
+							android:id="@+id/frontSideOverlayImageFileBrowseButton"
+							android:layout_width="@dimen/chevron_button_icon_size"
+							android:layout_height="@dimen/chevron_button_icon_size"
+							android:layout_marginEnd="@dimen/edit_text_padding_horizontal"
+							android:layout_alignParentEnd="true"
+							android:layout_centerVertical="true"
+							android:clickable="true"
+							android:focusable="true"
+							android:background="?attr/selectableItemBackgroundBorderless"
+							android:src="@drawable/ic_search_file" />
+
+					</RelativeLayout>
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/chevron_button_height"
+						android:gravity="center_vertical">
+
+						<TextView
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:layout_marginHorizontal="@dimen/field_padding_horizontal"
+							android:text="@string/print_back_side_mono"
+							android:textSize="@dimen/zebra_heading_text"
+							android:textStyle="bold" />
+
+						<Switch
+							android:id="@+id/printBackSideSwitch"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginEnd="@dimen/field_padding_horizontal"
+							android:checked="false" />
+
+					</LinearLayout>
+
+					<RelativeLayout
+						android:id="@+id/backSideImageFileContainer"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+
+						<com.zebra.zebraui.ZebraEditText
+							android:id="@+id/backSideImageFileEditText"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginEnd="@dimen/chevron_button_icon_size"
+							android:inputType="none"
+							app:zebraHasUnderline="false"
+							app:zebraHeaderText="@string/back_side_graphic_file" />
+
+						<ImageView
+							android:id="@+id/backSideImageFileBrowseButton"
+							android:layout_width="@dimen/chevron_button_icon_size"
+							android:layout_height="@dimen/chevron_button_icon_size"
+							android:layout_marginEnd="@dimen/edit_text_padding_horizontal"
+							android:layout_alignParentEnd="true"
+							android:layout_centerVertical="true"
+							android:clickable="true"
+							android:focusable="true"
+							android:background="?attr/selectableItemBackgroundBorderless"
+							android:src="@drawable/ic_search_file" />
+
+					</RelativeLayout>
+
+					<com.zebra.zebraui.ZebraSpinnerView
+						android:id="@+id/printQuantities"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:entries="@array/quantities"
+						app:zebraHeaderText="@string/quantity"
+						app:zebraHasUnderline="false" />
+
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="@dimen/field_padding_vertical"
+						android:layout_marginBottom="@dimen/field_padding_vertical"
+						android:paddingLeft="@dimen/field_padding_horizontal"
+						android:paddingRight="@dimen/field_padding_horizontal"
+						android:textColor="@color/zebra_blue"
+						android:textSize="@dimen/field_header_text"
+						android:textStyle="bold"
+						android:text="@string/job_status_log" />
+
+					<TextView
+						android:id="@+id/jobStatusText"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginHorizontal="@dimen/field_padding_horizontal"
+						android:layout_marginBottom="@dimen/field_padding_vertical"
+						android:padding="@dimen/container_margin"
+						android:background="@color/grey_200"
+						android:minLines="10"
+						android:scrollbars="vertical"
+						android:textSize="@dimen/job_status_log_text"
+						tools:text="This is an example job status log message.\nThis is another example job status log message.\nThis is an example job status log message.\nThis is an example job status log message.\nThis is an example job status log message.\nThis is an example job status log message.\nThis is an example job status log message.\nThis is an example job status log message.\nThis is an example job status log message.\nThis is an example job status log message.\nThis is an example job status log message.\n" />
+
+				</LinearLayout>
+
+			</ScrollView>
+
+			<include layout="@layout/overlay_progress" />
+
+		</FrameLayout>
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/divider_width"
+			android:background="@color/zebra_blue" />
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:paddingLeft="@dimen/field_padding_horizontal"
+			android:paddingRight="@dimen/field_padding_horizontal"
+			android:paddingTop="@dimen/field_padding_vertical"
+			android:paddingBottom="@dimen/field_padding_vertical">
+
+			<com.zebra.zebraui.ZebraButton
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:id="@+id/cancelButton"
+				android:textAllCaps="true"
+				android:text="@android:string/cancel"
+				android:layout_weight="2" />
+
+			<com.zebra.zebraui.ZebraButton
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:id="@+id/printButton"
+				android:textAllCaps="true"
+				android:layout_weight="3"
+				android:text="@string/print"
+				app:zebraButtonIsPrimary="true" />
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+</FrameLayout>
